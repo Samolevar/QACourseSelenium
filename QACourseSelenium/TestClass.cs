@@ -11,7 +11,13 @@ namespace QACourseSelenium
     [TestFixture]
     public class TestClass
     {
-        private ChromeDriver chromeDriver =  new ChromeDriver();
+        private ChromeDriver chromeDriver;
+        
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            chromeDriver = new ChromeDriver();
+        }
 
         [OneTimeTearDown]
         public void TearDown()
