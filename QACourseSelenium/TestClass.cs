@@ -5,35 +5,34 @@ using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace QACourseSelenium
 {
     [TestFixture]
     public class TestClass
     {
-        private ChromeDriver chromeDriver;
+        private IWebDriver driver;
         
         [OneTimeSetUp]
         public void SetUp()
         {
-            chromeDriver = new ChromeDriver();
+            driver = new ChromeDriver();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            chromeDriver.Quit();
+            driver.Quit();
         }
 
         [Test]
         public void ChromeDriverTest()
         {
-            chromeDriver.Navigate().GoToUrl("http://www.google.com");
-            chromeDriver.FindElement(By.ClassName("gLFyf")).SendKeys("google");
+            driver.Navigate().GoToUrl("http://www.google.com");
+            driver.FindElement(By.ClassName("gLFyf")).SendKeys("google");
             Thread.Sleep(500);
-            chromeDriver.FindElement(By.ClassName("gLFyf")).SendKeys(Keys.Enter);
-            var text = chromeDriver.FindElement(By.ClassName("e2BEnf")).Text;
+            driver.FindElement(By.ClassName("gLFyf")).SendKeys(Keys.Enter);
+            var text = driver.FindElement(By.ClassName("e2BEnf")).Text;
             Assert.That(text, Is.EqualTo("Главные новости").After(500));
         }
     }
