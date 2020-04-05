@@ -33,7 +33,7 @@ namespace QACourseSelenium
             Thread.Sleep(500);
             driver.FindElement(By.ClassName("gLFyf")).SendKeys(Keys.Enter);
             var text = driver.FindElement(By.ClassName("e2BEnf")).Text;
-            Assert.That(text, Is.EqualTo("Главные новости").After(500));
+            Assert.That(text, Is.EqualTo("Вместе с google часто ищут").After(500));
         }
     }
 }
