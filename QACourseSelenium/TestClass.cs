@@ -61,21 +61,15 @@ namespace QACourseSelenium
             Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
         }
 
+    //Здесь проверяю поле "Логин"
+
         [Test]
-        public void ItShouldShowErrorIfLogin3simbols()
+        public void ItShouldShowErrorIfLoginContains3Symbols()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iia");
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
-            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
-
+            
             var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
             checkBox.Click();
             checkBox.Submit();
@@ -85,7 +79,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldBeOKIfLoginContains4LatinSimbols()
+        public void ItShouldBeOKIfLoginContains4LatinSymbols()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -107,8 +101,8 @@ namespace QACourseSelenium
             Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
         }
 
-                [Test]
-        public void ItShouldBeOKIfLoginContains24LatinSimbols()
+        [Test]
+        public void ItShouldBeOKIfLoginContains24LatinSymbols()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -131,7 +125,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldShowErrorIfLoginContains25Simbols()
+        public void ItShouldShowErrorIfLoginContains25Symbols()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -177,7 +171,7 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void ItShouldBeOKIfLoginIsCyrillic()
+        public void ItShouldBeOKIfLoginContainsCyrillic()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -221,8 +215,7 @@ namespace QACourseSelenium
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual(expected: "Invalid input.", actual: result);
         }
-
-
+    
         [Test]
         public void ItShouldShowErrorIfLoginContainsNonPrintableCharacters()
         {
@@ -247,7 +240,7 @@ namespace QACourseSelenium
         }
                                             
         [Test]
-        public void ItShouldShowErrorIfLoginAreClear()
+        public void ItShouldShowErrorIfLoginAreNull()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -269,9 +262,8 @@ namespace QACourseSelenium
             Assert.AreEqual("Field must be between 4 and 24 characters long.\r\nInvalid input.", result);
         }
         
-        
-
-
+    //Здесь проверяю поле "Адрес электронной почты"  
+    
         [Test]
         public void ItShouldShowErrorIfMailFormatContainsNoZeroAndFirstDomainNames()
         {
@@ -317,8 +309,7 @@ namespace QACourseSelenium
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual(expected: "Invalid email address.", actual: result);
         }
-
-
+        
         [Test]
         public void ItShouldShowErrorIfMailFormatNotValidInLocalPart()
         {
@@ -352,7 +343,76 @@ namespace QACourseSelenium
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
             select.Options[1].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "John..Doe@example.com");
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "\"John..Doe\"@example.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
+        }
+        
+        [Test]
+        public void ItShouldBeOKIfMailContains6Symbols()
+        {
+            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[1].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "t@t.gg");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
+        }
+        
+        [Test]
+        public void ItShouldBeOKIfMailContains35Symbols()
+        {
+            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[1].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "ttttt0000111234567891923456743@t.gg");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
+        }
+
+        [Test]
+        public void ItShouldShowErrorIfMailContains36Symbols()
+        {
+            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[1].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "ttttt0000111234567891923456743a@t.gg");
 
             driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
             driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
@@ -362,14 +422,34 @@ namespace QACourseSelenium
             checkBox.Submit();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
-            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+            Assert.AreEqual(expected: "Field must be between 6 and 35 characters long.", actual: result);
         }
 
+        [Test]
+        public void ItShouldShowErrorIfMailAreNull()
+        {
+            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[1].Click();
 
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "");
 
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
 
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
 
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
+        }
+               
+    //Здесь проверяю поле "Пароль"  
+         
         [Test]
         public void ItShouldShowErrorIfPasswordNotConfirmed()
         {
@@ -393,6 +473,6 @@ namespace QACourseSelenium
             Assert.AreEqual(expected: "Passwords must match", actual: result);
         }
 
-     }
+    }
 }
     
