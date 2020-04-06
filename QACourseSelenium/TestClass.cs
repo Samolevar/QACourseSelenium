@@ -28,7 +28,7 @@ namespace QACourseSelenium
 
 
         [Test]
-        public void IntitialTest()
+        public void Form_ShouldAcceptValidData()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -49,7 +49,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void SexMale()
+        public void Form_ShouldAcceptSexMale()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -70,7 +70,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void WithoutSex()
+        public void Form_ShouldAcceptWithoutSex()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -93,7 +93,7 @@ namespace QACourseSelenium
 
 
         [Test]
-        public void LoginCyrilic()
+        public void Form_ShouldAcceptLoginCyrilic()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -114,7 +114,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void EmptyLogin()
+        public void Form_ShouldNotAcceptEmptyLogin()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -135,7 +135,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Field must be between 4 and 24 characters long.\r\nInvalid input.");
         }
         [Test]
-        public void Login3Lenght()
+        public void Form_ShouldNotAcceptShortLogin()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -156,7 +156,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Field must be between 4 and 24 characters long.");
         }
         [Test]
-        public void Login4Lenght()
+        public void Form_ShouldAcceptLoginLenghtOfLeftBoundary()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -177,7 +177,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void Login24Lenght()
+        public void Form_ShouldAcceptLoginLenghtOfRightBoundary()
     {
         driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
         driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -198,7 +198,7 @@ namespace QACourseSelenium
         Assert.AreEqual(result, "Спасибо за регистрацию!");
     }
         [Test]
-        public void Login25Lenght()
+        public void Form_ShouldNotAcceptLongLogin()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -219,7 +219,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Field must be between 4 and 24 characters long.");
         }
         [Test]
-        public void LoginWithSimvol()
+        public void Form_ShouldNotAcceptLoginWithSpecSimvol()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -240,7 +240,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid input.");
         }
         [Test]
-        public void LoginWithNamberAndLetters()
+        public void Form_ShouldAcceptLoginWithNamberAndLetters()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -261,7 +261,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void LoginOnlyNambers()
+        public void Form_ShouldAcceptLoginWithOnlyNumbers()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -282,7 +282,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void LoginWithSpaceAtTheEnd()
+        public void Form_ShouldNotAcceptLoginWithSpaceAtTheEnd()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -305,7 +305,7 @@ namespace QACourseSelenium
 
 
         [Test]
-        public void EmailValidn()
+        public void Form_ShouldAcceptValidnEmailn()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -326,7 +326,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void EmailCyrilic()
+        public void Form_ShouldNotAcceptCyrilicEmail()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -347,7 +347,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmailWithDomainPathLenght1()
+        public void Form_ShouldNotAcceptEmailWithDomainPathLenght1()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -368,7 +368,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmailWithoutSignSobaka()
+        public void Form_ShouldNotAcceptEmailWithoutSignDog()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -389,7 +389,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmailWithoutSignPoint()
+        public void Form_ShouldNotAcceptEmailWithoutSignPoint()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -410,7 +410,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmailWithSpaceAfter()
+        public void Form_ShouldNotAcceptEmailWithSpaceAfter()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -431,7 +431,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmptyEmail()
+        public void Form_ShouldNotAcceptEmptyEmail()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -452,7 +452,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Field must be between 6 and 35 characters long.\r\nInvalid email address.");
         }
         [Test]
-        public void EmailPointbeforeSignSobaka()
+        public void Form_ShouldNotAcceptEmailPointbeforeSignSobaka()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -473,7 +473,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void EmailWithTwoSignSobaka()
+        public void Form_ShouldNotAcceptEmailWithTwoSignDog()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -494,7 +494,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Invalid email address.");
         }
         [Test]
-        public void Email5Lenght()
+        public void Form_ShouldNotAcceptShortEmail()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -515,7 +515,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Field must be between 6 and 35 characters long.\r\nInvalid email address.");
         }
         [Test]
-        public void Email6Lenght()
+        public void Form_ShouldAcceptEmailLenghtOfLeftBoundary()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -536,7 +536,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void Email35Lenght()
+        public void Form_ShouldAcceptEmailLenthOfRightBoundary()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -557,7 +557,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void Email36Lenght()
+        public void Form_ShouldNotAcceptLongEmail()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -579,7 +579,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void PasswordsCyrilic()
+        public void Form_ShouldAcceptPasswordsCyrilic()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -600,7 +600,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void DiffrentPasswords()
+        public void Form_ShouldNotAcceptNotMatchPasswords()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -621,7 +621,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Passwords must match");
         }
         [Test]
-        public void SpacePassword()
+        public void Form_ShouldNotAcceptPasswordConsistingOfSpace()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -642,7 +642,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "This field is required.");
         }
         [Test]
-        public void PasswordsSign()
+        public void Form_ShouldAcceptPasswordsWithSpecSign()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -663,7 +663,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void MatchPasswords()
+        public void Form_ShouldAcceptMatchPasswords()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -684,7 +684,7 @@ namespace QACourseSelenium
             Assert.AreEqual(result, "Спасибо за регистрацию!");
         }
         [Test]
-        public void EmptyConfirmPasswords()
+        public void Form_ShouldNotAcceptEmptyConfirmPasswords()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
@@ -707,7 +707,7 @@ namespace QACourseSelenium
 
 
         [Test]
-        public void WithoutCheckBox()
+        public void Form_ShouldAcceptNotSelectedCheckBox()
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Яна Худякова");
