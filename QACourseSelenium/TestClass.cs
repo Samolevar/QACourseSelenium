@@ -30,6 +30,60 @@ namespace QACourseSelenium
             validPassword = "qwerty";
         }
 
+        private void ChooseGender(int index)
+        {
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[index].Click();
+        }
+
+        private void ChooseGender()
+        {
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[0].Click();
+        }
+
+        private void EnterStudentName()
+        {
+            driver.FindElement(By.ClassName("student")).SendKeys(myName);
+        }
+
+        private void EnterName(string name)
+        {
+            driver.FindElement(By.ClassName("student")).SendKeys(name);
+        }
+
+        private void EnterLogin()
+        {
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
+        }
+
+        private void EnterLogin(string login)
+        {
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(login);
+        }
+
+        private void EnterEmail()
+        {
+            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
+        }
+
+        private void EnterEmail(string email)
+        {
+            driver.FindElement(By.ClassName("text-email")).SendKeys(email);
+        }
+
+        private void EnterPasswordAndConfPassword()
+        {
+            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
+            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+        }
+
+        private void EnterPasswordAndConfPassword(string password)
+        {
+            driver.FindElement(By.ClassName("text-password")).SendKeys(password);
+            driver.FindElement(By.Id("confirm")).SendKeys(password);
+        }
+
         [OneTimeTearDown]
         public void TearDown()
         {
@@ -52,17 +106,11 @@ namespace QACourseSelenium
         public void InitialTest()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
-
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
             checkbox.Click();
@@ -73,6 +121,16 @@ namespace QACourseSelenium
 
         }
 
+        
+
+
+
+
+
+
+
+
+
 
 
 
@@ -81,16 +139,11 @@ namespace QACourseSelenium
         public void LoginWith4Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("KOTI");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("KOTI");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -106,16 +159,11 @@ namespace QACourseSelenium
         public void LoginWithMoreThen4AndLessThen24Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("kotich");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("kotich");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -131,16 +179,11 @@ namespace QACourseSelenium
         public void LoginWith24Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("kkkkkkkkkkkkkkkkkkkkkkkk");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("kkkkkkkkkkkkkkkkkkkkkkkk");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -156,16 +199,11 @@ namespace QACourseSelenium
         public void LoginWithRussianLayout()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("котич");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("котич");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -180,16 +218,11 @@ namespace QACourseSelenium
         public void EmptyLogin()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -206,16 +239,11 @@ namespace QACourseSelenium
         public void LoginWithLessThen4characters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("KOT");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("KOT");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -230,16 +258,11 @@ namespace QACourseSelenium
         public void LoginWithMoreThen24characters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("KOTI4isTheBestAnaInWholeOverwatchComunity");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("KOTI4isTheBestAnaInWholeOverwatchComunity");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -254,16 +277,11 @@ namespace QACourseSelenium
         public void LoginWithSpecialSymbols()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("$KOTI4%");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("$KOTI4%");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -279,16 +297,11 @@ namespace QACourseSelenium
         public void LoginWithSpaces()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("KOT I4");
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin("KOT I4");
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -308,16 +321,11 @@ namespace QACourseSelenium
         public void CorrectEmail()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("lubozhevk@gmail.com");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("lubozhevk@gmail.com");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -335,16 +343,11 @@ namespace QACourseSelenium
         public void EmailWith6Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("k@l.ru");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("k@l.ru");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -360,16 +363,11 @@ namespace QACourseSelenium
         public void EmailWithMoreThen6AndLessThen35Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("kavo@mail.ru");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("kavo@mail.ru");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -385,16 +383,11 @@ namespace QACourseSelenium
         public void EmailWith35Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("kkkkkkkkkkkkkkkkkkkkkkkkkkk@mail.ru");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("kkkkkkkkkkkkkkkkkkkkkkkkkkk@mail.ru");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -410,16 +403,11 @@ namespace QACourseSelenium
         public void EmailWithMoreThen35Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("kkkkkkkkkkkkkkkkkkkkkkkkkkkavo@mail.ru");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("kkkkkkkkkkkkkkkkkkkkkkkkkkkavo@mail.ru");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -435,16 +423,11 @@ namespace QACourseSelenium
         public void EmailWithLessThen6Charecters()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("k@l.r");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("k@l.r");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -463,16 +446,11 @@ namespace QACourseSelenium
         public void EmptyEmail()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -491,16 +469,11 @@ namespace QACourseSelenium
         public void EmailWithoutDogSymbol()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("kavomail.ru");
-            driver.FindElement(By.ClassName("text-password")).SendKeys(validPassword);
-            driver.FindElement(By.Id("confirm")).SendKeys(validPassword);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail("kavomail.ru");
+            EnterPasswordAndConfPassword();
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
@@ -519,14 +492,10 @@ namespace QACourseSelenium
         public void PasswordNotMatch()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail();
             driver.FindElement(By.ClassName("text-password")).SendKeys("qwerty");
             driver.FindElement(By.Id("confirm")).SendKeys("qwer");
 
@@ -545,16 +514,11 @@ namespace QACourseSelenium
         public void EmptyPassword()
         {
             driver.Navigate().GoToUrl(validUrl);
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-
-
-            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-            driver.FindElement(By.ClassName("text-password")).SendKeys("");
-            driver.FindElement(By.Id("confirm")).SendKeys("");
+            EnterStudentName();
+            EnterLogin();
+            ChooseGender();
+            EnterEmail();
+            EnterPasswordAndConfPassword("");
 
 
             var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
