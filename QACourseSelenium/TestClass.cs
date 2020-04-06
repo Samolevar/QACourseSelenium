@@ -120,12 +120,12 @@ namespace QACourseSelenium
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Чухлеб Марина");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("qwerty");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys("");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
             select.Options[1].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys("m@l.r");
+            driver.FindElement(By.ClassName("text-email")).SendKeys("mia@mail.ru");
             driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
             driver.FindElement(By.Id("confirm")).SendKeys("123456");
 
@@ -134,7 +134,7 @@ namespace QACourseSelenium
             checkbox.Submit();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
-            Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
+            Assert.AreEqual("Field must be between 4 and 24 characters long.\r\nInvalid input.", result);
         }
 
         [Test]
@@ -147,7 +147,7 @@ namespace QACourseSelenium
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
             select.Options[1].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys("m@l.r");
+            driver.FindElement(By.ClassName("text-email")).SendKeys("");
             driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
             driver.FindElement(By.Id("confirm")).SendKeys("123456");
 
