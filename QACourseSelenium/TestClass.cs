@@ -42,35 +42,17 @@ namespace QACourseSelenium
             select.Options[0].Click();
         }
 
-        private void EnterStudentName()
-        {
-            driver.FindElement(By.ClassName("student")).SendKeys(myName);
-        }
+        private void EnterStudentName() => driver.FindElement(By.ClassName("student")).SendKeys(myName);
+        private void EnterStudentName(string name) => driver.FindElement(By.ClassName("student")).SendKeys(name);
 
-        private void EnterName(string name)
-        {
-            driver.FindElement(By.ClassName("student")).SendKeys(name);
-        }
 
-        private void EnterLogin()
-        {
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
-        }
+        private void EnterLogin() => driver.FindElement(By.ClassName("text-plain")).SendKeys(validLogin);
+        private void EnterLogin(string login) => driver.FindElement(By.ClassName("text-plain")).SendKeys(login);
 
-        private void EnterLogin(string login)
-        {
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(login);
-        }
 
-        private void EnterEmail()
-        {
-            driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
-        }
+        private void EnterEmail() => driver.FindElement(By.ClassName("text-email")).SendKeys(validEmail);
+        private void EnterEmail(string email) => driver.FindElement(By.ClassName("text-email")).SendKeys(email);
 
-        private void EnterEmail(string email)
-        {
-            driver.FindElement(By.ClassName("text-email")).SendKeys(email);
-        }
 
         private void EnterPasswordAndConfPassword()
         {
@@ -121,7 +103,7 @@ namespace QACourseSelenium
 
         }
 
-        
+
 
 
 
