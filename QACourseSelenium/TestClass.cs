@@ -14,408 +14,371 @@ namespace QACourseSelenium
     {
         private IWebDriver driver;
         private string baseURL;
-
+        private string StudentName;
+        
         [OneTimeSetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
             baseURL = "https://qa-course.kontur.host/training/ekb/form";
-            
+            StudentName = "Сергей Елчанинов";
         }
 
+        void TestUrl()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+        }
+
+        void EnterStudent()
+        {
+            driver.FindElement(By.ClassName("student")).SendKeys(StudentName);
+        }
+
+        void EnterLogin(string Login)
+        {
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(Login);
+        }
+
+        void ChooseGender(int Index)
+        {
+            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
+            select.Options[Index].Click();  //Index: 0-Default, 1 - Male, 2 - Female
+        }
+
+        void EnterMail(string Mail)
+        {
+            driver.FindElement(By.ClassName("text-email")).SendKeys(Mail);
+        }
+
+        void EnterPass(string Pass)
+        {
+            driver.FindElement(By.ClassName("text-password")).SendKeys(Pass);
+        }
+
+        void EnterPassConfirm(string PassConfirm)
+        {
+            driver.FindElement(By.Id("confirm")).SendKeys(PassConfirm);
+        }
+
+        void CheckAgree()
+        {
+            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkbox.Click();
+        }
+
+        void ClickRegister()
+        {
+            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkbox.Submit();
+        }
+        
         [OneTimeTearDown]
         public void TearDown()
         {
             driver.Quit();
         }
-
+        
         [Test]
-        public void Login_From_4_To_24_Characters_Rus()
+        public void ValidRusLoginAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Сергей123");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Сергей123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Login_From_4_To_24_Characters_Eng()
+        public void ValidEngLoginAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei123");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Login_4_Characters()
+        public void ValidMinLengthLoginAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Serg");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Serg");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Login_24_Characters()
+        public void ValidMaxLengthLoginAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("SergiPavlovichElchaninov");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("SergiPavlovichElchaninov");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Login_Less_Than_4_Characters()
+        public void InvalidLessThanMinLengthLoginNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("S3r");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("S3r");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 4 and 24 characters long.", result);
         }
 
         [Test]
-        public void Login_More_Than_24_Characters()
+        public void InvalidMoreThanMaxLengthLoginNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Serrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr123");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Serrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 4 and 24 characters long.", result);
         }
 
         [Test]
-        public void Login_Not_Allowed_Symbols()
+        public void InvalidSpecialSymbolsLoginNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Ser!@#$%^&*()");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Ser!@#$%^&*()");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Invalid input.", result);
         }
 
         [Test]
-        public void Login_With_Space()
+        public void UsingSpacebarInLoginNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei Elchaninov");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei Elchaninov");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Invalid input.", result);
         }
 
         [Test]
-        public void Login_Empty()
+        public void EmptyLoginNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 4 and 24 characters long.\r\nInvalid input.", result);
         }
 
         [Test]
-        public void Gender_Null()
+        public void NotChosenGenderAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei123");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[0].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("testmail@testmail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(0);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Valid_Mail_Length_6_Characters()
+        public void ValidMinLengthMailAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("1@1.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("1@1.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Valid_Mail_Length_35_Characters()
+        public void ValidMaxLengthMailAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("SergeiPavlovichElchaninov@Gmail.com");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("SergeiPavlovichElchaninov@Gmail.com");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
         [Test]
-        public void Invalid_Mail_Less_Than_6_Characters()
+        public void InvalidLessThanMinLengthMailNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("1@1.u");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("1@1.u");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
         }
 
         [Test]
-        public void Invalid_Mail_More_Than_35_Characters()
+        public void InvalidMoreThanMaxLengthMailNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("hedghedghedghedghedghedghedghedghedg@.mail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("hedghedghedghedghedghedghedghedghedg@.mail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
         }
 
         [Test]
-        public void Not_Mail()
+        public void InvalidNotMailNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("hedg.mail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("hedg.mail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Invalid email address.", result);
         }
 
         [Test]
-        public void Mail_Empty()
+        public void EmptyMailNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
         }
 
         [Test]
-        public void Pass_Not_Match()
+        public void PasswordMissmatchNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("mail@mail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-            driver.FindElement(By.Id("confirm")).SendKeys("126");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Passwords must match", result);
         }
 
         [Test]
-        public void Pass_Confirm_Empty()
+        public void EmptyPasswordConfirmNotAllowed()
         {
-            driver.Navigate().GoToUrl(baseURL);
-            driver.FindElement(By.ClassName("student")).SendKeys("Сергей Елчанинов");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys("Sergei1");
-            var select = new SelectElement(driver.FindElement(By.ClassName("Selected")));
-            select.Options[1].Click();
-
-            driver.FindElement(By.ClassName("text-email")).SendKeys("mail@mail.ru");
-
-            driver.FindElement(By.ClassName("text-password")).SendKeys("123456");
-
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Click();
-            checkbox.Submit();
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("");
+            CheckAgree();
+            ClickRegister();
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Passwords must match", result);
