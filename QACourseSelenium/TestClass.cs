@@ -76,7 +76,7 @@ namespace QACourseSelenium
 
         [Test]
 
-        public void MailBiggerThanThirtyFiveSymbols() //Длина почты больше 30 символов
+        public void MailBiggerThanThirtyFiveSymbols() //Длина почты больше 35 символов
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Артемий Серов");
@@ -146,7 +146,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void SpecialSymbolsInLogin() //Спец символы в составе логина
+        public void SpecialSymbolsInLogin() //Спецсимволы в составе логина
         {
             driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
             driver.FindElement(By.ClassName("student")).SendKeys("Артемий Серов");
