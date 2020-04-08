@@ -185,7 +185,24 @@ namespace QACourseSelenium
         {
             TestUrl();
             EnterStudent();
-            EnterLogin("Ser!@#$%^&*()");
+            EnterLogin("Ser#123");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("123456");
+            EnterPassConfirm("123456");
+            CheckAgree();
+            ClickRegister();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual("Invalid input.", result);
+        }
+
+        [Test]  //Баг или ошибка требований (Логин, ограничения - 4 - 24 символа, только буквы и цифры)
+        public void InvalidUnderscoreSymbolInLoginNotAllowed()
+        {
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Serg___123");
             ChooseGender(1);
             EnterMail("testmail@testmail.ru");
             EnterPass("123456");
