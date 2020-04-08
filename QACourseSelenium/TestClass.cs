@@ -1,6 +1,7 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
 
+using System;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -418,6 +419,25 @@ namespace QACourseSelenium
 
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual("Спасибо за регистрацию!", result);
+        }
+
+        [Test]
+        public void EmptyPassNotAllowed()
+        {
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei100501");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("");
+            EnterPassConfirm("");
+            CheckAgree();
+            ClickRegister();
+
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            IWebElement Password = driver.FindElement(By.ClassName("text-password"));
+            String ValidationMessage = Password.GetAttribute("validationMessage");
+            Assert.AreEqual("Заполните это поле.", ValidationMessage);
         }
 
     }
