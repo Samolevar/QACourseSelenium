@@ -68,8 +68,8 @@ namespace QACourseSelenium
 
         void ClickRegister()
         {
-            var checkbox = driver.FindElement(By.ClassName("button-checkbox"));
-            checkbox.Submit();
+            var Submit = driver.FindElement(By.CssSelector("input[type=submit]"));
+            Submit.Click();
         }
         
         [OneTimeTearDown]
@@ -399,6 +399,25 @@ namespace QACourseSelenium
 
             var result = driver.FindElement(By.ClassName("errors")).Text;
             Assert.AreEqual("Passwords must match", result);
+        }
+
+        [Test]
+        public void RegisterByEnterKeyAllowed()
+        {
+            TestUrl();
+            EnterStudent();
+            EnterLogin("Sergei100500");
+            ChooseGender(1);
+            EnterMail("testmail@testmail.ru");
+            EnterPass("1");
+            EnterPassConfirm("1");
+            CheckAgree();
+
+            var Submit = driver.FindElement(By.CssSelector("input[type=submit]"));
+            Submit.SendKeys(Keys.Enter);
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual("Спасибо за регистрацию!", result);
         }
 
     }
