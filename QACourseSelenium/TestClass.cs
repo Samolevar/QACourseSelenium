@@ -14,11 +14,13 @@ namespace QACourseSelenium
     {
         private const string Expected = "Field must be between 4 and 24 characters long.\r\nInvalid input.";
         private IWebDriver driver;
-        
+        private const string URL = "https://qa-course.kontur.host/training/ekb/form";
+
         [OneTimeSetUp]
         public void SetUp()
         {
             driver = new ChromeDriver();
+
         }
 
         [OneTimeTearDown]
@@ -41,14 +43,14 @@ namespace QACourseSelenium
         [Test]
                 public void InitialTest()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "ivanovaS");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test1234@test1234.com");
 
             driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
             driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
@@ -66,10 +68,18 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfLoginContains3Symbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iia");
-            
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
             var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
             checkBox.Click();
             checkBox.Submit();
@@ -79,14 +89,14 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldBeOKIfLoginContains4LatinSymbols()
+        public void RegistrationIsSuccessfulIfLoginContains4LatinSymbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -102,14 +112,14 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldBeOKIfLoginContains24LatinSymbols()
+        public void RegistrationIsSuccessfulIfLoginContains24LatinSymbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiiiiiiiiiiiiiiiiiiiiiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -127,12 +137,12 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfLoginContains25Symbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiiiiiiiiiiiiiiiiiiiiiiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -148,14 +158,14 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldBeOKIfLoginContainsNumbers()
+        public void RegistrationIsSuccessfulIfLoginContainsNumbers()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "3434222389");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -171,14 +181,14 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void ItShouldBeOKIfLoginContainsCyrillic()
+        public void RegistrationIsSuccessfulIfLoginContainsCyrillic()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "ОаНшВФЫ");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -196,12 +206,12 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfLoginContainsSpecialCharacters()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: ",-.;:/&()#+=%{}[]<>@$*'~");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -219,12 +229,12 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfLoginContainsNonPrintableCharacters()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "^р ^t^I^m");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -240,14 +250,14 @@ namespace QACourseSelenium
         }
                                             
         [Test]
-        public void ItShouldShowErrorIfLoginAreNull()
+        public void ItShouldShowErrorIfLoginIsNull()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -265,14 +275,14 @@ namespace QACourseSelenium
     //Здесь проверяю поле "Адрес электронной почты"  
     
         [Test]
-        public void ItShouldShowErrorIfMailFormatContainsNoZeroAndFirstDomainNames()
+        public void ItShouldShowErrorIfMailDomainPartContainsNoDotCom()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test");
 
@@ -288,16 +298,39 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void ItShouldShowErrorIfMailFormatContainsNoCommersialAt()
+        public void ItShouldShowErrorIfMailTLDContains1Symbol()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "testtest");
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.c");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+        }
+
+        [Test]
+        public void ItShouldShowErrorIfMailTLDContainsNumbers()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.111");
 
             driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
             driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
@@ -311,16 +344,16 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void ItShouldShowErrorIfMailFormatNotValidInLocalPart()
+        public void ItShouldShowErrorIfMailSecondDomainNameIsNull()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "John..Doe@example.com");
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@.com");
 
             driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
             driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
@@ -334,16 +367,108 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldBeOKIfMailLocalPartIsInQuotationMarks()
+        public void ItShouldShowErrorIfMailContainsNoLocalPart()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
-            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "\"John..Doe\"@example.com");
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "@test.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual("Invalid email address.", result);
+        }
+        
+        [Test]
+        public void ItShouldShowErrorIfMailFormatContainsNoCommersialAt()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "testtest.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+        }
+
+        [Test]
+        public void ItShouldShowErrorIfMailContainsNCommersialAt()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@@test.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+        }
+
+        [Test]
+        public void ItShouldShowErrorIfMailContainsSpecialCharactersInUnquotedLocalPart()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: ",-.;:/&()#+=%{}[]<>$*'~@ex.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+        }
+
+        [Test]
+        public void RegistrationIsSuccessfulIfMailContainsSpecialCharactersInQuotedLocalPart()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "\",-.;:/&()#+=%{}[]<>$*'~\"@ex.com");
 
             driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
             driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
@@ -355,16 +480,62 @@ namespace QACourseSelenium
             var result = driver.FindElement(By.ClassName("flashes")).Text;
             Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
         }
-        
+
         [Test]
-        public void ItShouldBeOKIfMailContains6Symbols()
+        public void ItShouldShowErrorIfMailIsCyrillic()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "ывфй@ру.рф");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual(expected: "Invalid email address.", actual: result);
+        }
+
+        [Test]
+        public void ItShouldShowErrorIfMailContains5Symbols()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "1@t.g");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("errors")).Text;
+            Assert.AreEqual("Field must be between 6 and 35 characters long.\r\nInvalid email address.", result);
+        }
+
+        [Test]
+        public void RegistrationIsSuccessfulIfMailContains6Symbols()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "t@t.gg");
 
@@ -380,14 +551,14 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void ItShouldBeOKIfMailContains35Symbols()
+        public void RegistrationIsSuccessfulIfMailContains35Symbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "ttttt0000111234567891923456743@t.gg");
 
@@ -405,12 +576,12 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfMailContains36Symbols()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "ttttt0000111234567891923456743a@t.gg");
 
@@ -426,14 +597,14 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void ItShouldShowErrorIfMailAreNull()
+        public void ItShouldShowErrorIfMailIsNull()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
             driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "");
 
@@ -453,12 +624,12 @@ namespace QACourseSelenium
         [Test]
         public void ItShouldShowErrorIfPasswordNotConfirmed()
         {
-            driver.Navigate().GoToUrl("https://qa-course.kontur.host/training/ekb/form");
+            driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
-            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "oooooo");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
 
             var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
-            select.Options[1].Click();
+            select.Options[2].Click();
 
             driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
 
@@ -473,6 +644,55 @@ namespace QACourseSelenium
             Assert.AreEqual(expected: "Passwords must match", actual: result);
         }
 
+    //Здесь проверяю поле "Пол"
+        
+        [Test]
+        public void RegistrationIsSuccessfulIfGenderIsNull()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[0].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Click();
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
+        }
+
+    //Здесь проверяю выбор чекбокса "Я согласен с условиями"
+
+        [Test]
+        public void RegistrationIsSuccessfulIfCheckboxIsNotSubmitted()
+        {
+            driver.Navigate().GoToUrl(URL);
+            driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
+            driver.FindElement(By.ClassName("text-plain")).SendKeys(text: "iiii");
+
+            var select = new SelectElement(driver.FindElement(By.ClassName("selected")));
+            select.Options[2].Click();
+
+            driver.FindElement(By.ClassName("text-email")).SendKeys(text: "test@test.com");
+
+            driver.FindElement(By.ClassName("text-password")).SendKeys(text: "1234");
+            driver.FindElement(By.Id("confirm")).SendKeys(text: "1234");
+
+            var checkBox = driver.FindElement(By.ClassName("button-checkbox"));
+            checkBox.Submit();
+
+            var result = driver.FindElement(By.ClassName("flashes")).Text;
+            Assert.AreEqual(expected: "Спасибо за регистрацию!", actual: result);
+        }
+        
     }
 }
     
