@@ -14,7 +14,7 @@ namespace QACourseSelenium
     {
         private const string Expected = "Field must be between 4 and 24 characters long.\r\nInvalid input.";
         private IWebDriver driver;
-        private const string URL = "https://qa-course.kontur.host/training/ekb/form";
+        private const string URL = "https://qa-course.kontur.host/training/final";
 
         [OneTimeSetUp]
         public void SetUp()
@@ -89,7 +89,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void RegistrationIsSuccessfulIfLoginContains4LatinSymbols()
+        public void RegistrationIsSuccessfullIfLoginContains4LatinSymbols()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -112,7 +112,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void RegistrationIsSuccessfulIfLoginContains24LatinSymbols()
+        public void RegistrationIsSuccessfullIfLoginContains24LatinSymbols()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -158,7 +158,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void RegistrationIsSuccessfulIfLoginContainsNumbers()
+        public void RegistrationIsSuccessfullIfLoginContainsNumbers()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -181,7 +181,7 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void RegistrationIsSuccessfulIfLoginContainsCyrillic()
+        public void RegistrationIsSuccessfullIfLoginContainsCyrillic()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -459,7 +459,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void RegistrationIsSuccessfulIfMailContainsSpecialCharactersInQuotedLocalPart()
+        public void RegistrationIsSuccessfullIfMailContainsSpecialCharactersInQuotedLocalPart()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -528,7 +528,7 @@ namespace QACourseSelenium
         }
 
         [Test]
-        public void RegistrationIsSuccessfulIfMailContains6Symbols()
+        public void RegistrationIsSuccessfullIfMailContains6Symbols()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -551,7 +551,7 @@ namespace QACourseSelenium
         }
         
         [Test]
-        public void RegistrationIsSuccessfulIfMailContains35Symbols()
+        public void RegistrationIsSuccessfullIfMailContains35Symbols()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -647,7 +647,7 @@ namespace QACourseSelenium
     //Здесь проверяю поле "Пол"
         
         [Test]
-        public void RegistrationIsSuccessfulIfGenderIsNull()
+        public void RegistrationIsSuccessfullIfGenderIsNull()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
@@ -672,7 +672,7 @@ namespace QACourseSelenium
     //Здесь проверяю выбор чекбокса "Я согласен с условиями"
 
         [Test]
-        public void RegistrationIsSuccessfulIfCheckboxIsNotSubmitted()
+        public void RegistrationIsSuccessfullIfCheckboxIsNotSubmitted()
         {
             driver.Navigate().GoToUrl(URL);
             driver.FindElement(By.ClassName("student")).SendKeys(text: "Иванова Светлана");
